@@ -3,9 +3,9 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import requests
 from bs4 import BeautifulSoup
+import yfinance as yf
 import pandas as pd
 import numpy as np
-import yfinance as yf
 from config import SP500_URL, step, horizon, time, method, thresold_data
 
 def get_data():
