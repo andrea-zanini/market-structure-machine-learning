@@ -65,7 +65,7 @@ def pca(dataset: pd.DataFrame):
     indice = x.index
     x_mean = x.groupby(level = "Asset").mean()
     x_std = x.groupby(level = "Asset").std()
-    x_normalized = x.sub(x_mean, level="Asset").div(x_std, level="Asset")
+    x_normalized = x.sub(x_mean, level = "Asset").div(x_std, level="Asset")
     correlation = np.corrcoef(x_normalized, rowvar = False)
     eigenvalues, eigenvectors = np.linalg.eigh(correlation)
     idx = np.argsort(eigenvalues)[::-1]

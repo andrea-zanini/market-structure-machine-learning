@@ -33,6 +33,7 @@ def state_selection(train: pd.DataFrame):
         for seed in range(numero_seed):
             best_model = hmm.GaussianHMM(n_components = n, covariance_type = "diag", random_state = seed).fit(X = x)
             log_likelihood = best_model.score(x)
+            
             if best_log_likelihood < log_likelihood:
                model[n] = best_model
                best_log_likelihood = log_likelihood
