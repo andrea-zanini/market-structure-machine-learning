@@ -125,6 +125,3 @@ def plot_market_regimes(market_log_returns: pd.Series, train: pd.DataFrame, vali
     plt.tight_layout()
     plt.savefig(plot_path / "regime.png", dpi = 150, bbox_inches = "tight")
     plt.close()
-    
-    stati = pd.concat([market_states_train, market_states_validation, market_states_test], axis = 0)
-    return stati

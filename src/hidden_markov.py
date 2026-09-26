@@ -69,6 +69,7 @@ def state_selection(train: pd.DataFrame):
         "BIC": bic},
         index = stati_nascosti)
     metriche.index.name = "Hidden_States"
+    
     return model, stati_predetti, metriche, state_profile
 
 def validation_states(model: dict, validation: pd.DataFrame):
@@ -121,6 +122,7 @@ def validation_states(model: dict, validation: pd.DataFrame):
         "BIC": bic},
         index = stati_nascosti)
     metriche.index.name = "Hidden_States"
+    
     return stati_predetti, metriche, state_profile
 
 def out_of_sample(model: dict, test: pd.DataFrame):
