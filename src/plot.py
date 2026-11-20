@@ -13,28 +13,25 @@ BASE_DIR = Path(__file__).parent.parent
 plot_path = BASE_DIR / "data" / "plot"
 plot_path.mkdir(parents = True, exist_ok = True)
 
-STYLE = {
-    "style": "whitegrid",
-    "context": "paper",
-    "font": "serif",
-    "rc": {
-        "figure.figsize": (12, 6),
-        "axes.spines.top": False,
-        "axes.spines.right": False,
-        "axes.grid": True,
-        "grid.color": "0.85",
-        "grid.linewidth": 0.8,
-        "grid.alpha": 0,
-        "axes.edgecolor": "0.25",
-        "axes.labelcolor": "0.15",
-        "xtick.color": "0.25",
-        "ytick.color": "0.25",
-        "font.size": 11,
-        "axes.titlesize": 14,
-        "axes.labelsize": 11,
-        "legend.fontsize": 10
-        }
-    }
+STYLE = {"style": "whitegrid",
+         "context": "paper",
+         "font": "serif",
+         "rc": {"figure.figsize": (12, 6),
+                "axes.spines.top": False,
+                "axes.spines.right": False,
+                "axes.grid": True,
+                "grid.color": "0.85",
+                "grid.linewidth": 0.8,
+                "grid.alpha": 0,
+                "axes.edgecolor": "0.25",
+                "axes.labelcolor": "0.15",
+                "xtick.color": "0.25",
+                "ytick.color": "0.25",
+                "font.size": 11,
+                "axes.titlesize": 14,
+                "axes.labelsize": 11,
+                "legend.fontsize": 10}
+         }
 
 sns.set_theme(**STYLE)
 
@@ -59,27 +56,23 @@ def plot_market_regimes(market_log_returns: pd.Series, train: pd.DataFrame, vali
     price_test = price_not_aligned.loc[common_index_test]
     price = pd.concat([price_train, price_validation, price_test], axis = 0)
 
-    regime_config = {
-        0: {"name": "Bull",
-            "description": ("Positive return, lower volatility"),
-            "color": "#5a9b68",
-            "alpha": 0.5},
-        
-        1: {"name": "Bear", 
-            "description": ("Negative return, higher volatility"),
-            "color": "#e3242b",
-            "alpha": 0.5},
-        
-        2: {"name": "Tail Event",
-            "description": ("Positive return, lower volatility"),
-            "color": "#f4a261",
-            "alpha": 0.5},
-        
-        3: {"name": "Rally",
-            "description": ("Positive return, lower volatility"),
-            "color": "#2d5c3f",
-            "alpha": 0.5}
-    }
+    regime_config = {0: {"name": "Bull",
+                         "description": ("Positive return, lower volatility"),
+                         "color": "#5a9b68",
+                         "alpha": 0.5},
+                     1: {"name": "Bear", 
+                         "description": ("Negative return, higher volatility"),
+                         "color": "#e3242b",
+                         "alpha": 0.5},
+                     2: {"name": "Tail Event",
+                         "description": ("Positive return, lower volatility"),
+                         "color": "#f4a261",
+                         "alpha": 0.5},
+                     3: {"name": "Rally",
+                         "description": ("Positive return, lower volatility"),
+                         "color": "#2d5c3f",
+                         "alpha": 0.5}
+                     }
 
     fig, ax = plt.subplots()
     sns.despine()

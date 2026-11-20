@@ -27,14 +27,17 @@ def state_selection(train: pd.DataFrame):
     stati_nascosti = []
     
     for n in range(starting_point, end_point):
+        
         model[n] = None
         best_log_likelihood = - np.inf
         
         for seed in range(numero_seed):
+            
             best_model = hmm.GaussianHMM(n_components = n, covariance_type = "diag", random_state = seed).fit(X = x)
             log_likelihood = best_model.score(x)
             
             if best_log_likelihood < log_likelihood:
+                
                model[n] = best_model
                best_log_likelihood = log_likelihood
                     
@@ -48,31 +51,31 @@ def state_selection(train: pd.DataFrame):
         metriche_per_stato = []
         
         for s in range(n):
+            
             rendimenti_stato = rendimenti[stati_predetti[n] == s]
             media = np.mean(rendimenti_stato) * annuallizzazione
             volatilità = np.std(rendimenti_stato) * np.sqrt(annuallizzazione)
             sharpe_ratio = (media - (risk_free_rate * annuallizzazione)) / volatilità
             conteggio = (len(rendimenti_stato) / len(stati_predetti[n]))
-            metriche_per_stato.append({
-                "Stato": s,
-                "Media.": round(media, 4),
-                "Volatilità": round(volatilità, 4) * 100,
-                "Sharpe Ratio": round(sharpe_ratio, 4),
-                "Persistenza": round(persistenza[s], 4),
-                "Osservazioni %": round(conteggio * 100, 2)
-            })         
+            metriche_per_stato.append({"Stato": s,
+                                       "Media.": round(media, 4),
+                                       "Volatilità": round(volatilità, 4) * 100,
+                                       "Sharpe Ratio": round(sharpe_ratio, 4),
+                                       "Persistenza": round(persistenza[s], 4),
+                                       "Osservazioni %": round(conteggio * 100, 2)
+                                       })         
         state_profile[n] = pd.DataFrame(metriche_per_stato).set_index("Stato")
            
-    metriche = pd.DataFrame({
-        "Log-Likelihood": probabilità,
-        "AIC": aic,
-        "BIC": bic},
-        index = stati_nascosti)
+    metriche = pd.DataFrame({"Log-Likelihood": probabilità,
+                             "AIC": aic,
+                             "BIC": bic},
+                            index = stati_nascosti)
     metriche.index.name = "Hidden_States"
     
     return model, stati_predetti, metriche, state_profile
 
 def validation_states(model: dict, validation: pd.DataFrame):
+    
     x = validation.values
     data_points, feature = x.shape
     common_index = log_returns.index.intersection(validation.index)
@@ -86,6 +89,7 @@ def validation_states(model: dict, validation: pd.DataFrame):
     stati_nascosti = []
     
     for n in range(starting_point, end_point):
+        
         log_likelihood = model[n].score(x)
         parameter = n**2 + 2 * n * feature - 1
         aic.append(round(2 * parameter - 2 * log_likelihood, 4))
@@ -100,32 +104,34 @@ def validation_states(model: dict, validation: pd.DataFrame):
         matrice_empirica = matrice_conteggi.div(somme_riga, axis = 0).fillna(0)
         persistenza = np.diag(matrice_empirica.values)
         metriche_per_stato = []
+        
         for s in range(n):
+            
             rendimenti_stato = rendimenti[stati_predetti[n] == s]
             media = np.mean(rendimenti_stato) * annuallizzazione
             volatilità = np.std(rendimenti_stato) * np.sqrt(annuallizzazione)
             sharpe_ratio = (media - (risk_free_rate * annuallizzazione)) / volatilità
             conteggio = (len(rendimenti_stato) / len(stati_predetti[n]))
-            metriche_per_stato.append({
-                "Stato": s,
-                "Media.": round(media, 4),
-                "Volatilità": round(volatilità, 4) * 100,
-                "Sharpe Ratio": round(sharpe_ratio, 4),
-                "Persistenza": round(persistenza[s], 4),
-                "Osservazioni %": round(conteggio * 100, 2)
-            })         
+            metriche_per_stato.append({"Stato": s,
+                                       "Media.": round(media, 4),
+                                       "Volatilità": round(volatilità, 4) * 100,
+                                       "Sharpe Ratio": round(sharpe_ratio, 4),
+                                       "Persistenza": round(persistenza[s], 4),
+                                       "Osservazioni %": round(conteggio * 100, 2)
+                                       })         
         state_profile[n] = pd.DataFrame(metriche_per_stato).set_index("Stato")
             
-    metriche = pd.DataFrame({
-        "Log-Likelihood": probabilità,
-        "AIC": aic,
-        "BIC": bic},
-        index = stati_nascosti)
+    metriche = pd.DataFrame({"Log-Likelihood": probabilità,
+                             "AIC": aic,
+                             "BIC": bic},
+                            index = stati_nascosti)
     metriche.index.name = "Hidden_States"
     
     return stati_predetti, metriche, state_profile
 
 def out_of_sample(model: dict, test: pd.DataFrame):
+    
     y = test.values
     stati_out_of_sample = model[optimal_state].predict(y)
+    
     return stati_out_of_sample

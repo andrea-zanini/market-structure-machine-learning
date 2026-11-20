@@ -50,6 +50,7 @@ def compute_features():
     return dataset
 
 def pca(dataset: pd.DataFrame):
+    
     dates = dataset.index.get_level_values("Date").unique()
     length = int(len(dates) * division)
     train_dates = dates[:length]
@@ -94,4 +95,5 @@ def pca(dataset: pd.DataFrame):
     y_hmm = np.dot(y_normalized, clean_eigenvectors)
     y_hmm = pd.DataFrame(y_hmm, index = y.index, columns = x_hmm.columns)
     test = y_hmm.groupby(level = "Date").mean().sort_index()
+    
     return test, validation, train
