@@ -5,11 +5,11 @@ from src.data import get_data, get_market_returns
 from src.features import compute_features, pca
 
 BASE_DIR = Path(__file__).parent.parent
+feature_path = BASE_DIR / "data" / "feature"
+market_path = BASE_DIR / "data" / "market data"
 asset_path = BASE_DIR / "data" / "asset data"
 asset_path.mkdir(parents = True, exist_ok = True)
-market_path = BASE_DIR / "data" / "market data"
 market_path.mkdir(parents = True, exist_ok = True)
-feature_path = BASE_DIR / "data" / "feature"
 feature_path.mkdir(parents = True, exist_ok = True)
 
 prices, log_returns = get_data()

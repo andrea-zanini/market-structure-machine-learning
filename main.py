@@ -13,9 +13,6 @@ BASE_DIR = Path(__file__).parent.parent
 feature_path = BASE_DIR / "data" / "feature"
 market_path = BASE_DIR / "data" / "market data"
 asset_path = BASE_DIR / "data" / "asset data"
-asset_path.mkdir(parents = True, exist_ok = True)
-market_path.mkdir(parents = True, exist_ok = True)
-feature_path.mkdir(parents = True, exist_ok = True)
 
 prices, log_returns = get_data()
 market_log_returns, weights, market_cap = get_market_returns(log_returns)
