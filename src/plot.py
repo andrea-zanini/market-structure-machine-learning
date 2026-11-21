@@ -58,19 +58,11 @@ def plot_market_regimes(market_log_returns: pd.Series, train: pd.DataFrame, vali
 
     regime_config = {0: {"name": "Bull",
                          "description": ("Positive return, lower volatility"),
-                         "color": "#5a9b68",
+                         "color": "#013220",
                          "alpha": 0.5},
                      1: {"name": "Bear", 
                          "description": ("Negative return, higher volatility"),
-                         "color": "#e3242b",
-                         "alpha": 0.5},
-                     2: {"name": "Tail Event",
-                         "description": ("Positive return, lower volatility"),
-                         "color": "#f4a261",
-                         "alpha": 0.5},
-                     3: {"name": "Rally",
-                         "description": ("Positive return, lower volatility"),
-                         "color": "#2d5c3f",
+                         "color": "#780606",
                          "alpha": 0.5}
                      }
 

@@ -1,4 +1,5 @@
-SP500_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+SP500_ticker = "^GSPC"
+SP500 = "SP500"
 step = 50
 horizon = "10y"
 time = "1d"
@@ -14,5 +15,5 @@ division = 0.6
 lenght_validation_test = 0.5
 starting_point = 2
 end_point = 7
-optimal_state = 4
-optimal_hidden_state = [0, 1, 2, 3]
+optimal_state = 2
+optimal_hidden_state = [0, 1]
