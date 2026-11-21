@@ -15,5 +15,5 @@ __pycache__/
 
 # Output generati: ignora tutto tranne dati scaricati e grafici
 data/*
-!asset data/
-!plots/
+!data/asset data/
+!data/plots/
